@@ -505,7 +505,7 @@ static const NSTimeInterval kFlushDelay = 0.3;
         [_delegate requestQueue:self didLoadResponse:response];
     }
 
-    [self removeLoadingRequest:request];
+    [self removeRequest:request];
     [self loadNextInQueue];
 }
 
