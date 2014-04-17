@@ -247,6 +247,7 @@ static const NSTimeInterval kFlushDelay = 0.3;
 #endif
     }
     @synchronized(self) {
+        [[request retain] autorelease];
         [_loadingRequests removeObject:request];
     }
     RKLogTrace(@"Loading count now %ld for queue %@", (long)self.loadingCount, self);
@@ -385,6 +386,7 @@ static const NSTimeInterval kFlushDelay = 0.3;
     if ([self containsRequest:request]) {
         RKLogTrace(@"Removing request %@ from queue %@", request, self);
         @synchronized(self) {
+            [[request retain] autorelease];
             [self removeLoadingRequest:request];
             [_requests removeObject:request];
             request.queue = nil;
