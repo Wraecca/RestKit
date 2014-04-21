@@ -37,6 +37,7 @@
 @end
 
 NSString * const RKDefaultSeedDatabaseFileName = @"RKSeedDatabase.sqlite";
+NSString * const RKDefaultSeedDatabaseFileNameiPad = @"RKSeedDatabase_iPad.sqlite";
 
 @implementation RKManagedObjectSeeder
 
@@ -75,7 +76,13 @@ NSString * const RKDefaultSeedDatabaseFileName = @"RKSeedDatabase.sqlite";
 
         // If the user hasn't configured an object store, set one up for them
         if (nil == _manager.objectStore) {
-            _manager.objectStore = [RKManagedObjectStore objectStoreWithStoreFilename:RKDefaultSeedDatabaseFileName];
+            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+                _manager.objectStore = [RKManagedObjectStore objectStoreWithStoreFilename:RKDefaultSeedDatabaseFileNameiPad];
+            }
+            else {
+                _manager.objectStore = [RKManagedObjectStore objectStoreWithStoreFilename:RKDefaultSeedDatabaseFileName];
+
+            }
         }
 
         // Delete any existing persistent store
