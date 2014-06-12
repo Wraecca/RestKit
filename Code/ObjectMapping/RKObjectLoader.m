@@ -129,10 +129,11 @@
 {
     self.loading = NO;
     self.loaded = successful;
-    
-    if ([self.delegate respondsToSelector:@selector(objectLoaderDidFinishLoading:)]) {
-        [(NSObject<RKObjectLoaderDelegate>*)self.delegate performSelectorOnMainThread:@selector(objectLoaderDidFinishLoading:)
-                                                                           withObject:self waitUntilDone:YES];
+    if(self.loaded){
+        if ([self.delegate respondsToSelector:@selector(objectLoaderDidFinishLoading:)]) {
+            [(NSObject<RKObjectLoaderDelegate>*)self.delegate performSelectorOnMainThread:@selector(objectLoaderDidFinishLoading:)
+                                                                               withObject:self waitUntilDone:YES];
+        }
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:RKRequestDidFinishLoadingNotification object:self];
 }
@@ -401,7 +402,7 @@
 - (void)didFailLoadWithError:(NSError *)error
 {
     NSParameterAssert(error);
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+//    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
     if (_cachePolicy & RKRequestCachePolicyLoadOnError &&
         [self.cache hasResponseForRequest:self]) {
@@ -431,7 +432,7 @@
         [self finalizeLoad:NO];
     }
 
-    [pool release];
+//    [pool release];
 }
 
 // NOTE: We do NOT call super here. We are overloading the default behavior from RKRequest

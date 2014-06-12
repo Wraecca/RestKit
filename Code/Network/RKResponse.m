@@ -239,7 +239,6 @@ return __VA_ARGS__;                                                             
     [_request retain];
     [_request invalidateTimeoutTimer];
     [_request didFailLoadWithError:_failureError];
-    [_request release];
 }
 
 - (NSInputStream *)connection:(NSURLConnection *)connection needNewBodyStream:(NSURLRequest *)request
